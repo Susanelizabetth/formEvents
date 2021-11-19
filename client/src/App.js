@@ -8,12 +8,13 @@ function App() {
   const [unidad, setUnidad] = useState("")
   const [date, setDate] = useState("")
   const [time, setTime] = useState("")
+  const [formList, setFormList] = useState([])
 
   useEffect(() => {
     Axios 
       .get("http://localhost:3001/api/get")
       .then((res) => {
-        console.log(res.data)
+        setFormList(res.data)
       })
   })
 
@@ -55,6 +56,11 @@ function App() {
         }/>
       </div>
       <button onClick={submmitForm}>listo</button>
+
+      {formList.map((val) =>{
+        return <h1>Nombre del Evento: {val.eventname}</h1>
+
+      })}
     </div>
   );
 }
