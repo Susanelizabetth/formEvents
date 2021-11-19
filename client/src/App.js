@@ -24,9 +24,13 @@ function App() {
       formUnid: unidad, 
       formDate: date, 
       formTime: time
-    }).then(() => {
-      alert("insertado correctamente")
     })
+    setFormList([...formList, 
+                {eventname: name,
+                  unidad:unidad,
+                  fecha: date,
+                  hora_inicio:time
+                }])
   }
 
 
