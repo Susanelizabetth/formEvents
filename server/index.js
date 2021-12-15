@@ -12,14 +12,17 @@ const db = mysql.createPool({
 
 })
 
+
+
 app.use(cors())
 app.use(express.json())
 app.use(bodyParser.urlencoded({extended: true}))
     
 app.get('/api/get', (req, res) => {
-    sqlSelect = "SELECT * FROM formulario"
+    sqlSelect = "select idformulario, eventname, unidad, date_format(fecha, '%d-%m-%Y') as fecha, TIME_FORMAT(hora_inicio, '%h:%i %p') as hora_inicio from dicomesdatabase.formulario;"
     db.query(sqlSelect, (err, result) => {
         res.send(result)
+        console.log(err)
     })
 })
 
@@ -36,7 +39,26 @@ app.post("/api/insert", (req, res) => {
     })
 })
 
+app.delete("/api/delete/:formId", (req, res) => {
+    const id = req.params.formId
+    const sqlDelete = "DELETE FROM formulario WHERE idformulario = ?;"
+
+    db.query(sqlDelete, id, (err, result) => {
+        if (err) console.log(err)
+    })
+})
+
+app.put("/api/update", (req, res) => {
+    const id = req.body.formId
+    const name = req.body.formName
+    const sqlUpdate = "UPDATE formulario SET eventname = ? WHERE idformulario = ?;"
+
+    db.query(sqlUpdate, [name, id], (err, result) => {
+        if (err) console.log(err)
+    })
+})
 
 app.listen(3001, () => {
-    console.log("in port 3001")
+    console.log("in http://localhost:3001")
 })
+

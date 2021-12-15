@@ -10,13 +10,15 @@ function App() {
   const [time, setTime] = useState("")
   const [formList, setFormList] = useState([])
 
+  const [newName, setNewName] = useState("")
+
   useEffect(() => {
     Axios 
       .get("http://localhost:3001/api/get")
       .then((res) => {
         setFormList(res.data)
       })
-  })
+  }, [])
 
   const submmitForm = () => {
     Axios.post("http://localhost:3001/api/insert", {
@@ -31,6 +33,19 @@ function App() {
                   fecha: date,
                   hora_inicio:time
                 }])
+    window.location.reload(true);
+  }
+
+  const deleteForm = (formid) =>{
+    Axios.delete(`http://localhost:3001/api/delete/${formid}`)
+    window.location.reload(true);
+  }
+
+  const updateName = (formid) =>{
+    Axios.put("http://localhost:3001/api/update",{formId: formid, formName: newName} )
+    window.location.reload(true);
+
+    setNewName("")
   }
 
 
@@ -59,10 +74,20 @@ function App() {
           setTime(e.target.value)
         }/>
       </div>
+
       <button onClick={submmitForm}>listo</button>
 
       {formList.map((val) =>{
-        return <h1>Nombre del Evento: {val.eventname}</h1>
+        return <div>
+                <h1>Nombre del Evento: {val.eventname}</h1>
+                <p>fecha: {val.fecha},  hora: {val.hora_inicio}</p>
+                <button onClick={() => {deleteForm(val.idformulario)}}>BORRAR</button>
+                <input type="text" onChange={(e) => {
+                  setNewName(e.target.value)
+                }}></input>
+                <button onClick={() => {updateName(val.idformulario)}}>CAMBIAR</button>
+                 <hr/>
+               </div>
 
       })}
     </div>
