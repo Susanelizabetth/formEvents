@@ -4,6 +4,21 @@ const app = express()
 const mysql = require('mysql')
 const cors = require('cors')
 
+const path = require('path')
+const fs = require('fs')
+const multer = require('multer')
+
+const diskstorage = multer.diskStorage({
+    destination: path.join(__dirname, '../images'),
+    filename: (req, file, cb) => {
+        cb(null, file.originalname + Date.now())
+    }
+})
+
+const fileUpload = multer({
+    storage: diskstorage
+}).single('image')
+
 const db = mysql.createPool({
     host: 'localhost',
     user: 'root',
@@ -14,9 +29,13 @@ const db = mysql.createPool({
 
 
 
-app.use(cors())
+app. use(cors())
 app.use(express.json())
 app.use(bodyParser.urlencoded({extended: true}))
+
+app.get('/', (req, res) => {
+    res.send('<h1>BIENVENIDO A LA API<h1/>')
+})
     
 app.get('/api/get', (req, res) => {
     sqlSelect = "select idformulario, eventname, unidad, date_format(fecha, '%d-%m-%Y') as fecha, TIME_FORMAT(hora_inicio, '%h:%i %p') as hora_inicio from dicomesdatabase.formulario;"
