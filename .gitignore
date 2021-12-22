@@ -12,6 +12,7 @@
 */build
 
 # next.js
+*/.next
 client/.next/
 */.next/*
 */out/
