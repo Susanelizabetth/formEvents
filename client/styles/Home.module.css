@@ -1,0 +1,12 @@
+@import "https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css";
+
+
+.App {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.imagen{
+  padding: 6px 0 6px 13px;
+}
