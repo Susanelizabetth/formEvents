@@ -3,7 +3,7 @@ import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 import Axios from 'axios'
 import { useState, useEffect } from 'react';
-import '@fortawesome/fontawesome-free/css/all.min.css'
+
 
 export default function Home() {
   

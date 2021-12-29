@@ -1,48 +1,39 @@
 import { ServicesData } from "./utils/servicesData";
 
-import { DiseñoGrafico } from "./diseno_grafico";
-import { TVDigital } from "./tv_digital";
-import otro from './otro';
+import DiseñoGrafico from './diseno_grafico';
+import TVDigital from './tv_digital';
+import Otro from './otro';
 import React, { useState } from "react";
 
 export default function Todos() {
-    const [component, setComponent] = useState(['0', '1'])
     const [currentComt, setCurrentComt] = useState(0)
-    const [showComt, setShowComt] = useState(false)
+    const [showComt, setShowComt] = useState([false, false, false])
 
-    const checkedCurrent = () =>{
-        if (!showComt){
-            setShowComt(true)
-        }
-    }
 
     const setCurrent = (index) => {
         setCurrentComt(index)
-        checkedCurrent()
+        showComt[index] = !showComt[index]
     }
    
-    function ShowComponent (i) {
-        let c
+    /*function ShowComponent (i) {
+        
         switch (i) {
-            case '0': c = <ComponenetShow/> 
-            break 
-            case '1': c = <TVDigital/> 
-            break 
-            default: c = <DiseñoGrafico/>
+            case '0': return 
+            
+            case '1': return  
+            default: return null
         }
-        return <div>{c}</div>
+        
     }
 
-    function ComponenetShow(params) {
-        if (params === '0') {
-           return DiseñoGrafico
-        }
-        if (params === '1') {
-            <otro/>
-        }
-        return null
-    }    
-    console.log(currentComt)
+    function ComponentShow(i){
+        return(
+            
+        )
+        
+    }*/
+  
+    console.log(currentComt, showComt)
     return(
         <div className="container mt-6 pt-6 box">
             <h1 className="title has-text-centered">Formulario</h1>
@@ -111,15 +102,24 @@ export default function Todos() {
                     <input type="checkbox" onClick={() => setCurrent(1)}/> 
                     <label className="checkbox label">Tv Digital</label>
                 </div>
-                     
+
+                <div className="column is-flex is-align-items-center">
+                    <input type="checkbox" onClick={() => setCurrent(2)}/> 
+                    <label className="checkbox label">Otro</label>
+                </div>
+                
             </div>
 
             <hr/>
-            <div>
-                {ShowComponent()}
-            </div>
+            {showComt[0] ?  <DiseñoGrafico/> : null}
+
+            {showComt[1] ? <TVDigital/> : null}
+
+            {showComt[2] ? <Otro/> : null}
+           
                       
         </div>
+        
         
     )
     
