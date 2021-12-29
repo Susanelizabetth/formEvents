@@ -1,7 +1,50 @@
-export default function TVDigital() {
+import { ServicesData } from "./utils/servicesData";
 
+import { DiseñoGrafico } from "./diseno_grafico";
+import { TVDigital } from "./tv_digital";
+import otro from './otro';
+import React, { useState } from "react";
+
+export default function Todos() {
+    const [component, setComponent] = useState(['0', '1'])
+    const [currentComt, setCurrentComt] = useState(0)
+    const [showComt, setShowComt] = useState(false)
+
+    const checkedCurrent = () =>{
+        if (!showComt){
+            setShowComt(true)
+        }
+    }
+
+    const setCurrent = (index) => {
+        setCurrentComt(index)
+        checkedCurrent()
+    }
+   
+    function ShowComponent (i) {
+        let c
+        switch (i) {
+            case '0': c = <ComponenetShow/> 
+            break 
+            case '1': c = <TVDigital/> 
+            break 
+            default: c = <DiseñoGrafico/>
+        }
+        return <div>{c}</div>
+    }
+
+    function ComponenetShow(params) {
+        if (params === '0') {
+           return DiseñoGrafico
+        }
+        if (params === '1') {
+            <otro/>
+        }
+        return null
+    }    
+    console.log(currentComt)
     return(
-        <div className="container box mt-6 pt-6">
+        <div className="container mt-6 pt-6 box">
             <h1 className="title has-text-centered">Formulario</h1>
             <hr/>
             <div className="columns is-multiline">
@@ -56,9 +99,30 @@ export default function TVDigital() {
                     
                 </div>
             </div>
+            <hr/>
+            {/*aqui van los servicios */}
+            <div className="columns">
+                <div className="column is-flex is-align-items-center">
+                    <input type="checkbox" onClick={() => setCurrent(0)}/> 
+                    <label className="checkbox label">Diseño Grafico</label>
+                </div>
+                
+                <div className="column is-flex is-align-items-center">
+                    <input type="checkbox" onClick={() => setCurrent(1)}/> 
+                    <label className="checkbox label">Tv Digital</label>
+                </div>
+                     
+            </div>
 
+            <hr/>
+            <div>
+                {ShowComponent()}
+            </div>
+                      
         </div>
         
     )
     
 }
+
+

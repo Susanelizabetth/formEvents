@@ -4,7 +4,6 @@ import styles from '../styles/Home.module.css'
 import Axios from 'axios'
 import { useState, useEffect } from 'react';
 import '@fortawesome/fontawesome-free/css/all.min.css'
-import NavBar from './navBar';
 
 export default function Home() {
   
@@ -55,7 +54,6 @@ export default function Home() {
 
   const deleteForm = (formid) =>{
     Axios.delete(`http://localhost:3001/api/delete/${formid}`)
-    window.location.reload(true);
   }
 
   const updateName = (formid) =>{
@@ -119,7 +117,6 @@ export default function Home() {
 
         <div className="contol file has-name">
             <input className="" type="file" onChange={(e) =>{
-              console.log(e.target.files[0])
               setFile({...file, filedata: e.target.files[0], filename: e.target.files[0].name})
             }}/>
         </div>

@@ -28,7 +28,7 @@ function NavBar({ formData }) {
                         Formularios de Servicios
                         </a>
                         <div className="navbar-dropdown is-boxed">
-                            {formData.map((link, index) =>{
+                            {formData.map((link) =>{
                                 return(
                                     <Link href={link.path}>
                                         <a key={link.id} className="navbar-item">{link.name}</a>
