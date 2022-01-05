@@ -41,6 +41,15 @@ export default function Home() {
     formdata.append('imagenName', file.filename)
 
     Axios.post("http://localhost:3001/api/insert", formdata)
+         .then((res) => {
+                console.log(res)
+                setName('')
+                setUnidad('')
+                setDate('')
+                setTime('')
+                setFile(...file,{filedata: null, filename:''})
+            }
+          )
     setFormList([...formList, 
                 {eventname: name,
                   unidad:unidad,
@@ -49,6 +58,7 @@ export default function Home() {
                   name: file.name,
                   data: file.filedata
                 }])
+    
     
   }
 
@@ -79,74 +89,73 @@ export default function Home() {
         </div>
       </div>
       <div className={styles.App}>
-      <h1 className='title is-2 is-spaced has-text-danger'>formulario</h1>
-      <div className='container'>
-        <div className="columns">
-          <div className="control column is-6">
-            <label htmlFor="name">Nombre del evento:</label>
-            <input className="input" type="text" name="name" id="name" onChange = {(e) => {
-              setName(e.target.value)
-            }}/>
-          </div>
+        <h1 className='title is-2 is-spaced has-text-danger'>formulario</h1>
+        <form className='container'>
+          <div className="columns">
+            <div className="control column is-6">
+              <label htmlFor="name">Nombre del evento:</label>
+              <input className="input"  value={name} placeholder='Nombre del evento' type="text" name="name" id="name" onChange = {(e) => {
+                setName(e.target.value)
+              }}/>
+            </div>
           
-          <div className=" control column is-6">
-          <label htmlFor="unid">Facultad o unidda:</label>
-          <input className="input" type="text" name="unid" id="unid" onChange= {(e) =>
-            setUnidad(e.target.value)
-          }/>
+            <div className=" control column is-6">
+              <label htmlFor="unid">Facultad o unida:</label>
+              <input className="input" value={unidad} placeholder='Facultad o unida' type="text" name="unid" id="unid" onChange= {(e) =>
+                setUnidad(e.target.value)
+              }/>
+            </div>
           </div>
-        </div>
        
         
-        <div className="columns">
-          <div className="control column">
-            <label htmlFor="date">Fecha del evento:</label>
-            <input className="input" type="date" name="date" id="date" onChange = {(e) =>
-              setDate(e.target.value)
-            }/>
+          <div className="columns">
+            <div className="control column">
+              <label htmlFor="date">Fecha del evento:</label>
+              <input className="input" value={date} type="date" name="date" id="date" onChange = {(e) =>
+                setDate(e.target.value)
+              }/>
+            </div>
+            <div className="control column">
+              <label htmlFor="timeinit">Hora de inicio</label>
+              <input className="input" value={time} type="time" name="timeinit" id="timeinit" onChange = {(e) => 
+                setTime(e.target.value)
+              }/>
+            </div>
           </div>
-          <div className="control column">
-            <label htmlFor="timeinit">Hora de inicio</label>
-            <input className="input" type="time" name="timeinit" id="timeinit" onChange = {(e) => 
-              setTime(e.target.value)
-            }/>
+
+          <div className="contol file has-name">
+              <input className="" type="file" onChange={(e) =>{
+                setFile({...file, filedata: e.target.files[0], filename: e.target.files[0].name})
+              }}/>
           </div>
 
-          
-        </div>
 
-        <div className="contol file has-name">
-            <input className="" type="file" onChange={(e) =>{
-              setFile({...file, filedata: e.target.files[0], filename: e.target.files[0].name})
-            }}/>
-        </div>
+          <button type="submit" className="button is-link" onClick={submmitForm}>listo</button>
+        </form>
 
+      
 
-        <button className="button is-link" onClick={submmitForm}>listo</button>
+        {formList.map((val) =>{
+          return <div>
+                  <h1>{val.idformulario} - Nombre del Evento: {val.eventname}</h1>
+                  <img
+                    src={'http://localhost:3001/'+ val.imagen_name }
+                    width={50}
+                  />
+                  <p>fecha: {val.fecha},  hora: {val.hora_inicio}</p>
+                  <button onClick={() => {deleteForm(val.idformulario)}}>BORRAR</button>
+                  <input type="text" onChange={(e) => {
+                    setNewName(e.target.value)
+                  }}></input>
+                  <button onClick={() => {updateName(val.idformulario)}}>CAMBIAR</button>
+                  <hr/>
+                </div>
+
+        })}
       </div>
-
       
-
-      {formList.map((val) =>{
-        return <div>
-                <h1>{val.idformulario} - Nombre del Evento: {val.eventname}</h1>
-                <img
-                  src={'http://localhost:3001/'+ val.imagen_name }
-                  width={50}
-                />
-                <p>fecha: {val.fecha},  hora: {val.hora_inicio}</p>
-                <button onClick={() => {deleteForm(val.idformulario)}}>BORRAR</button>
-                <input type="text" onChange={(e) => {
-                  setNewName(e.target.value)
-                }}></input>
-                <button onClick={() => {updateName(val.idformulario)}}>CAMBIAR</button>
-                 <hr/>
-               </div>
-
-      })}
-    </div>
-      
-      <footer className={styles.footer}>
+      <footer className="footer">
+        <span className='bd-emoji-bis'>😉</span>
         <a
           href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
           target="_blank"
