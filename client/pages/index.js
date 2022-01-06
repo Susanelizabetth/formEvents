@@ -1,9 +1,7 @@
 import Image from 'next/image'
-import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 import Axios from 'axios'
 import { useState, useEffect } from 'react';
-
 
 export default function Home() {
   
@@ -76,10 +74,6 @@ export default function Home() {
 
   return (
     <div>
-      <Head>
-        <title>DICOMES</title>
-        <link rel='icon' href='/utp.jpg'/>
-      </Head>
       <div className='container mt-6 pt-6'>
         <div className=" box has-background-grey-light">
           <p className="has-text-justified">La Dirección de Comunicación Estratégica (DICOMES) se dedica al manejo de la Proyección Institucional e Imagen Corporativa de la Institución. Está conformada por el Departamento de Comunicación e Imagen, Departamento de Producción Gráfica y el Departamento de Protocolo, Ceremonial y Eventos. </p>
