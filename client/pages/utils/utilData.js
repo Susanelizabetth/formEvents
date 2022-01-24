@@ -100,4 +100,43 @@ export const checkAsen = [
     },
 
 ]
+
+export const checkPrAu = [
+    {
+        value: "Cobertura Periodística",
+        check: false
+    },
+    {
+        value: "Fotografía",
+        check: false
+    },
+    {
+        value: "Filmación",
+        check: false
+    },
+    {
+        value: "Divulgación en Web de la UTP *",
+        check: false
+    },
+    {
+        value: "Equipo de sonido",
+        check: false
+    },
+    {
+        value: "Entrevista en los medios de comunicación social",
+        check: false
+    },
+    {
+        value: "Publicar en Redes Sociales (Facebook , Twitter)",
+        check: false
+    },
+    {
+        value: "Apoyo en Videoconferencias (Filmadora y equipo de audio)",
+        check: false
+    },
+    {
+        value: "Transmisión por Streaming",
+        check: false
+    },
+]
     
