@@ -1,18 +1,50 @@
-import { ServicesData } from "./utils/servicesData";
-
-import DiseñoGrafico from './diseno_grafico';
-import TVDigital from './tv_digital';
-import Otro from './otro';
 import React, { useState } from "react";
+import Checkbox from './components/Checkbox';
+import Input from './components/Input';
+import StepBox from './components/StepBox';
+
+import { checkPlan } from "./utils/utilData";
+import { checkProt } from "./utils/utilData";
+import { checkCont } from "./utils/utilData";
+import { checkAsen } from "./utils/utilData";
 
 export default function Todos() {
-    const [currentComt, setCurrentComt] = useState(0)
-    const [showComt, setShowComt] = useState([false, false, false])
+    /*const [currentComt, setCurrentComt] = useState(0)*/
+    /*const [showComt, setShowComt] = useState([false, false, false])*/
+
+    const [isCheck, setIsCheck] = useState({
+        index: 1,
+        value: "Precedencia",
+        check: false
+    })
+    const [isCheckPlan, setIsCheckPlan] = useState(checkPlan)
+    const [isCheckProt, setisCheckProt] = useState(checkProt)
+    const [isCheckCont, setisCheckCont] = useState(checkCont)
+    const [isCheckAsen, setisCheckAsen] = useState(checkAsen)
 
 
-    const setCurrent = (index) => {
+    /*const setCurrent = (index) => {
         setCurrentComt(index)
         showComt[index] = !showComt[index]
+    }*/
+
+    const onChangeCheckbox = () => {
+        setIsCheck({index:isCheck.index,
+                    value: isCheck.value,
+                    check: !isCheck.check})
+    }
+
+    const onChangeCheckPlan = (index, ck) => {
+        isCheckPlan[index].check = !ck
+    }
+    const onChangeCheckOth = (index, ck) => {
+        isCheckProt[index].check = !ck
+    }
+    const onChangeCheckCont = (index, ck) => {
+        isCheckCont[index].check = !ck
+    }
+    const onChangeCheckAsen = (index, ck) => {
+        isCheckAsen[index].check = !ck
     }
    
     /*function ShowComponent (i) {
@@ -33,91 +65,91 @@ export default function Todos() {
         
     }*/
   
-    console.log(currentComt, showComt)
+    /*console.log(currentComt, showComt)*/
     return(
         <div className="container mt-6 pt-6 box">
             <h1 className="title has-text-centered">Formulario</h1>
             <hr/>
-            <div className="columns is-multiline">
-                <h3 className="title column is-4">Detalles del Evento</h3>
-                <div className="column is-8">
-                    <div className="field">
-                        <label className="label">Nombre completo de la actividad:</label>
-                        <div className="control">
-                            <input className="input" type="text" placeholder="Nombre completo de la actividad" required/>
-                        </div>
-                    </div>
-                    <div className="field">
-                        <label className="label">Facultad o unidad que organiza:</label>
-                        <div className="control">
-                            <input className="input" type="text" placeholder="Facultad o unidad que organiza"/>
-                        </div>
-                    </div>
-                    <div className="columns">
-                        <div className="field column">
-                            <label className="label">Fecha del evento:</label>
-                            <div className="control">
-                                <input className="input" type="date" placeholder="Fecha del evento:"/>
-                            </div>
-                        </div>
-                        <div className="field column">
-                            <label className="label">Hora de inicio:</label>
-                            <div className="control">
-                                <input className="input" type="time" placeholder="Hora de inicio"/>
-                            </div>
-                        </div>
-                        <div className="field column">
-                            <label className="label">Hora que finaliza:</label>
-                            <div className="control">
-                                <input className="input" type="time" placeholder="Hora que finaliza"/>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="columns">
-                        <div className="field column">
-                            <label className="label">Lugar donde se realizará:</label>
-                            <div className="control">
-                                <input className="input" type="text" placeholder="Lugar donde se realizará"/>
-                            </div>
-                        </div>
-                        <div className="field column">
-                            <label className="label">Tipo de actividad:</label>
-                            <div className="control">
-                                <input className="input" type="text" placeholder="Tipo de actividad:"/>
-                            </div>
-                        </div>
-                    </div>
-                    
+            <StepBox title="Detalles del Evento">
+                <Input label="Nombre completo de la actividad"/>
+                <Input label="Facultad o unidad que organiza"/>
+                
+                <div className="columns">
+                    <Input label="Fecha del evento" set="field column" type="date" />
+                    <Input label="Hora de inicio" set="field column" type="time" />
+                    <Input label="Hora de cierre" set="field column" type="time" />
                 </div>
-            </div>
+
+                <div className="columns">
+                    <Input label="Lugar donde se realizará" set="field column" />
+                    <Input label="Tipo de actividad" set="field column" />
+                </div>
+            </StepBox>
             <hr/>
             {/*aqui van los servicios */}
-            <div className="columns">
-                <div className="column is-flex is-align-items-center">
-                    <input type="checkbox" onClick={() => setCurrent(0)}/> 
-                    <label className="checkbox label">Diseño Grafico</label>
-                </div>
-                
-                <div className="column is-flex is-align-items-center">
-                    <input type="checkbox" onClick={() => setCurrent(1)}/> 
-                    <label className="checkbox label">Tv Digital</label>
-                </div>
+            <StepBox title="Servicios de Protocolo"
+                     subtitle="Servicios de protocolo, ceremonila y organización del evento">
+                <div class="columns is-multiline">
+                    <div class="column is-6">
+                        <Checkbox label={isCheck.value} index={isCheck.index} toggleChange={onChangeCheckbox}/>
+                        <br/>
+                        <div class="field">
+                            <label class="label">Planeación y organización del evento:</label>
+                            {isCheckPlan.map((e, i) =>{
+                                return(
+                                    <Checkbox label={e.value} index={i} toggleChange={() => onChangeCheckPlan(i, e.check)} />
+                                )
+                            })
 
-                <div className="column is-flex is-align-items-center">
-                    <input type="checkbox" onClick={() => setCurrent(2)}/> 
-                    <label className="checkbox label">Otro</label>
-                </div>
-                
-            </div>
+                            }  
+                        </div>
 
+                        <br/>
+
+                        <div class="field">
+                            <label class="label">Protocolo</label>
+                            {isCheckProt.map((e,i) => {
+                                return(
+                                    <Checkbox label={e.value} index={i} toggleChange={() => onChangeCheckOth(i, e.check)}/> 
+                                )
+                            })
+
+                            }
+                        </div>
+
+                        <br/>
+
+                        <div class="field">
+                            <label class="label">Contenido de</label>
+                            {isCheckCont.map((e, i) => {
+                                return(
+                                    <Checkbox label={e.value} index={i} toggleChange={() => onChangeCheckCont(i,e.check)}/>
+                                )
+                                })
+                            }   
+                        </div>
+                    </div>
+
+                    <div class="column is-6">
+                        <div class="field">
+                            <label class="label">Asesorías en:</label>
+                            {isCheckAsen.map((e,i) => {
+                                return(
+                                    <Checkbox label={e.value} index={i} toggleChange={() => onChangeCheckAsen(i, e.check)} />
+                                )
+                            })}
+            
+                        </div>
+                    </div>
+                </div>
+            </StepBox>
             <hr/>
-            {showComt[0] ?  <DiseñoGrafico/> : null}
-
-            {showComt[1] ? <TVDigital/> : null}
-
-            {showComt[2] ? <Otro/> : null}
-           
-                      
+            <StepBox title="Servicios de Prensa y Audiovisual">
+                <div>
+                    <p>Hola soy nuevo</p>
+                    <p>ALOOO</p>
+                </div>
+            </StepBox>                    
         </div>
         
         
