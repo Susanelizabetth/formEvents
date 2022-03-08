@@ -3,12 +3,10 @@ import Checkbox from './components/Checkbox';
 import Input from './components/Input';
 import StepBox from './components/StepBox';
 import Textarea from "./components/Textarea";
+import CheckQnty from './components/CheckQnty';
 
-import { checkPlan } from "./utils/utilData";
-import { checkProt } from "./utils/utilData";
-import { checkCont } from "./utils/utilData";
-import { checkAsen } from "./utils/utilData";
-import { checkPrAu } from "./utils/utilData";
+import { checkPlan, checkProt, checkCont, checkAsen, checkPrAu, DGrafico } from "./utils/utilData";
+
 
 
 export default function Todos() {
@@ -25,6 +23,8 @@ export default function Todos() {
     const [isCheckCont, setisCheckCont] = useState(checkCont)
     const [isCheckAsen, setisCheckAsen] = useState(checkAsen)
     const [isCheckPrAu, setisCheckPrAu] = useState(checkPrAu)
+    const [prensaNota, setPrensaNota] = useState("")
+    const [isGraf, setisGraf] = useState(DGrafico)
 
     /*const setCurrent = (index) => {
         setCurrentComt(index)
@@ -39,6 +39,19 @@ export default function Todos() {
 
     const onChangeCheck = (i, d, c) => {
        d[i].check = !c
+       if (d === isGraf) {
+           isGraf[i].show = !c
+       }
+       console.log(d[i])
+
+    }
+
+    const ShowQuantity = (value) => {
+        if (value === true){
+            return(
+                <CheckQnty/>
+            )
+        }
     }
 
     /*function ShowComponent (i) {
@@ -142,8 +155,34 @@ export default function Todos() {
                         )
                     })}
                 </div>
-                <Textarea label="Información para nota de Prensa"/>
-            </StepBox>                    
+                <Textarea value={prensaNota} name="nota" id="nota" label="Información para nota de Prensa" onChange={(e) => {
+                    setPrensaNota(e.target.value)
+                    }}/>
+                    <p>{prensaNota}</p>
+            </StepBox>
+           
+            
+
+            <hr/>
+            <StepBox title="Servicios de la sección de Diseño Gráfico">
+                <div className="field">
+                    <label class="label">Servicios de la sección de Diseño Gráfico:</label>
+                </div>
+                {isGraf.map((e,i) => {
+                    return(
+                        <div>
+                            <Checkbox label={e.label} index={i} toggleChange={() => {
+                                onChangeCheck(i, isGraf, e.check)
+                            }}/>
+                            {isGraf[i].check ? <CheckQnty/> : null}
+                        </div>
+                        
+                    )
+                })
+
+                }
+            
+            </StepBox>    
         </div>
         
         
