@@ -139,4 +139,101 @@ export const checkPrAu = [
         check: false
     },
 ]
-    
+
+export const DGrafico = [
+    {
+        label: "Afiche Full Color",
+        check: false,
+        show: false
+    },
+    {
+        label: "Afiche vía Web",
+        check: false,
+        show: false
+    },
+    {
+        label: "Brochure",
+        check: false,
+        show: false
+    },
+    {
+        label: "Volantes",
+        check: false,
+        show: false
+    },
+    {
+        label: "Página de Prensa",
+        check: false,
+        show: false
+    },
+    {
+        label: "Separadores",
+        check: false,
+        show: false
+    },
+    {
+        label: "Logos",
+        check: false,
+        show: false
+    },
+    {
+        label: "Tarjetas",
+        check: false,
+        show: false
+    },
+    {
+        label: "Certificados",
+        check: false,
+        show: false
+    },
+    {
+        label: "Boletines",
+        check: false,
+        show: false
+    },
+    {
+        label: "Papelería",
+        check: false,
+        show: false
+    },
+    {
+        label: "Diagramación (libros / revistas)",
+        check: false,
+        show: false
+    },
+    {
+        label: "Portadas de carpetas",
+        check: false,
+        show: false
+    },
+    {
+        label: "Escenografías",
+        check: false,
+        show: false
+    },
+    {
+        label: "Stand",
+        check: false,
+        show: false
+    },
+    {
+        label: "Banners",
+        check: false,
+        show: false
+    },
+    {
+        label: "Letreros",
+        check: false,
+        show: false
+    },
+    {
+        label: "Material P.O.P.",
+        check: false,
+        show: false
+    },
+    {
+        label: "Diseños de CD",
+        check: false,
+        show: false
+    },
+]
